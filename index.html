@@ -1,10 +1,8 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible="IE="edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css">
@@ -26,21 +24,21 @@
                         <span></span>
                     </div>
                     <ul class="navlinks">
-                        <li><a href="#">Home</a></li>
+                        <li><a href="#home">Home</a></li>
                         <li><a href="#about">About Me</a></li>
                         <li><a href="#work">Work</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </nav>
             </header>
-            <div class="container">
+            <div class="container" id="home">
                 <div class="hero-pic">
                     <img src="images/main_photo.jpg" alt="profile pic">
                 </div>
                 <div class="hero-text">
                     <h5>Hi I'm <span class="input">FullStack Developer</span></h5>
                     <h1>Rana Muhammad Areeb</h1>
-                    <p>As a full stack web developer, I have successfully developed dynamic web applications utilizing HTML, CSS, and Java for the frontend and PHP, SQL for the backend. I optimized website performance and responsiveness, providing an exceptional user experience across various devices.</p>
+                    <p class="slide-up">As a full stack web developer, I have successfully developed dynamic web applications utilizing HTML, CSS, and Java for the frontend and PHP, SQL for the backend. I optimized website performance and responsiveness, providing an exceptional user experience across various devices.</p>
 
                     <div class="btn-group">
                         <a href="#about" class="btn">About Me</a>
@@ -59,15 +57,15 @@
 
     <section id="about" class="about-section">
         <div class="wrapper">
-            <h2>About Me</h2>
-            <p>I am a dedicated full stack web developer with a strong foundation in both frontend and backend technologies. My education in Computer Science has equipped me with the knowledge and skills necessary to excel in the field. I have hands-on experience in various projects, from developing dynamic web applications to optimizing website performance.</p>
-            <h3>Education</h3>
-            <ul>
+            <h2 class="slide-up">About Me</h2>
+            <p class="slide-up">I am a dedicated full stack web developer with a strong foundation in both frontend and backend technologies. My education in Computer Science has equipped me with the knowledge and skills necessary to excel in the field. I have hands-on experience in various projects, from developing dynamic web applications to optimizing website performance.</p>
+            <h3 class="slide-up">Education</h3>
+            <ul class="slide-up">
                 <li>Bachelor's Degree in Computer Science - XYZ University</li>
                 <li>Certification in Full Stack Web Development - ABC Institute</li>
             </ul>
-            <h3>Experience</h3>
-            <ul>
+            <h3 class="slide-up">Experience</h3>
+            <ul class="slide-up">
                 <li>Full Stack Developer at Tech Solutions - 3 years</li>
                 <li>Web Developer Intern at Innovative Web - 1 year</li>
             </ul>
@@ -76,9 +74,9 @@
 
     <section id="work" class="work-section">
         <div class="wrapper">
-            <h2>Experience</h2>
-            <p>Here are some videos showcasing my work:</p>
-            <div class="video-gallery">
+            <h2 class="slide-up">Experience</h2>
+            <p class="slide-up">Here are some videos showcasing my work:</p>
+            <div class="video-gallery slide-up">
                 <video width="320" height="240" controls>
                     <source src="videos/Project1.mp4" type="video/mp4">
                     Your browser does not support the video tag.
@@ -94,25 +92,24 @@
 
     <section id="contact" class="contact-section">
         <div class="wrapper">
-            <h2>Contact</h2>
-            <p>You can reach me through the following channels:</p>
-            <div class="contact-methods">
+            <h2 class="slide-up">Contact</h2>
+            <p class="slide-up">You can reach me through the following channels:</p>
+            <div class="contact-methods slide-up">
                 <div class="contact-item">
                     <i class="fa-solid fa-envelope"></i>
-                    <p><p1>Email:</p1> ranaareeb1029@gmail.com</a></p>
+                    <p><p1>Email:</p1> ranaareeb1029@gmail.com</p>
                 </div>
                 <div class="contact-item">
                     <i class="fa-solid fa-phone"></i>
-                    <p><p1>Phone:</p1>+923030538811</a></p>
+                    <p><p1>Phone:</p1>+923030538811</p>
                 </div>
                 <div class="contact-item">
                     <i class="fa-brands fa-linkedin"></i>
                     <p><p1>Linkedin:</p1> <a href="https://www.linkedin.com/in/rana-areeb-b83161254/">linkedin.com/in/yourprofile</a></p>
                 </div>
-              
             </div>
-            <h3>Send Me a Message</h3>
-            <form class="contact-form"action="send_email.php" method="POST" >
+            <h3 class="slide-up">Send Me a Message</h3>
+            <form class="contact-form slide-up" action="send_email.php" method="POST">
                 <input type="text" placeholder="Your Name" required>
                 <input type="email" placeholder="Your Email" required>
                 <textarea placeholder="Your Message" required></textarea>
@@ -141,6 +138,47 @@
             backSpeed: 55,
             loop: true
         });
+
+        // Smooth scroll and section animation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Remove active-section class from all sections
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.remove('active-section');
+                });
+
+                // Add active-section class to the target section
+                document.querySelector(this.getAttribute('href')).classList.add('active-section');
+            });
+        });
+
+        // Slide-up animation on scroll
+        function reveal() {
+            var elements = document.querySelectorAll('.slide-up');
+            var windowHeight = window.innerHeight;
+            var elementVisible = 150;
+
+            for (var i = 0; i < elements.length; i++) {
+                var elementTop = elements[i].getBoundingClientRect().top;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    elements[i].classList.add('show');
+                } else {
+                    elements[i].classList.remove('show');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', reveal);
+        // To check the scroll position on page load
+        reveal();
     </script>
+    
 </body>
 </html>
