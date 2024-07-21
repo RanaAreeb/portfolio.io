@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <!-- Font awesome cdn font icon css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
     <div class="hero-header">
@@ -90,34 +91,57 @@
         </div>
     </section>
 
-    <section id="contact" class="contact-section">
-        <div class="wrapper">
-            <h2 class="slide-up">Contact</h2>
-            <p class="slide-up">You can reach me through the following channels:</p>
-            <div class="contact-methods slide-up">
-                <div class="contact-item">
-                    <i class="fa-solid fa-envelope"></i>
-                    <p><p1>Email:</p1> ranaareeb1029@gmail.com</p>
+   
+            <div class="contactform">
+                <h1>Contact us</h1>
+                <div class="form-group">
+                    <label for="">Your Name</label>
+                    <input type="text"  id="name" placeholder="eg. name">
                 </div>
-                <div class="contact-item">
-                    <i class="fa-solid fa-phone"></i>
-                    <p><p1>Phone:</p1>+923030538811</p>
+                <div class="form-group">
+                    <label for="">Your Email</label>
+                    <input type="text"  id="email" placeholder="eg. example@gmail.com">
                 </div>
-                <div class="contact-item">
-                    <i class="fa-brands fa-linkedin"></i>
-                    <p><p1>Linkedin:</p1> <a href="https://www.linkedin.com/in/rana-areeb-b83161254/">linkedin.com/in/yourprofile</a></p>
+                <div class="form-group">
+                    <label for="">Subject</label>
+                    <input type="text"  id="subject" placeholder="eg. Subject">
                 </div>
-            </div>
-            <h3 class="slide-up">Send Me a Message</h3>
-            <form class="contact-form slide-up" action="send_email.php" method="POST">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" required></textarea>
-                <div class="alert"><?php echo $alert; ?></div>
-                <button type="submit">Send</button>
-            </form>
-        </div>
-    </section>
+                <div class="form-group">
+                    <label for="">Message</label>
+                    <textarea id="message"  placeholder="Message"></textarea>
+                </div>
+                <div class="form-group">
+                <button onclick="sendMessage()"> Send</button>    
+                </div>
+            
+              </div>
+              <script>
+                // Initialize emailjs once when the script is loaded
+                emailjs.init("cCKMsPmf37MeysYz7");
+            
+                function sendMessage(){
+                    var serviceID = "service_bibyvgp";
+                    var templateID = "template_nkalz4g";
+            
+                    var params = {
+                        sendername: document.querySelector("#name").value,
+                        senderemail: document.querySelector("#email").value,
+                        subject: document.querySelector("#subject").value,
+                        message: document.querySelector("#message").value
+                    };
+            
+                    emailjs.send(serviceID, templateID, params)
+                    .then(res => {
+                        alert('Thank you, ' + params.sendername + '. Your message has been sent.');
+                    })
+                    .catch(error => {
+                        console.error('Error sending message:', error);
+                    });
+                }
+            </script>
+            
+       
+    
 
     <!-- Typed.js for typing text effect -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
